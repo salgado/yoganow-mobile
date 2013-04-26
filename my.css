@@ -1,0 +1,27 @@
+/* Put your custom CSS here */
+
+#page1 {
+	background-image: url(yoga-mat-texture.jpg);
+	background-attachment:fixed;
+}
+
+.ui-content { 
+  opacity: 0.8;
+}
+
+.header h3 { 
+	width: 100%;
+	margin-left: 0;
+	text-align:left;
+}
+
+.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+padding: 1em 15px;
+display: block;
+color:#555;
+}
+
+.ui-btn-inner { 
+	background-color:#4d3361;
+	color:#ccc;
+}

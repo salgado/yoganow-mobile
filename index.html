@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="viewport" content="initial-scale=1.0, user-scalable=no" />
+        <meta name="apple-mobile-web-app-capable" content="yes" />
+        <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+        <title>
+        </title>
+        <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="purple_theme_mobile.min.css" />
+        <link rel="stylesheet" href="my.css" />
+
+        <script src="https://s3.amazonaws.com/codiqa-cdn/jquery-1.7.2.min.js">
+        </script>
+        <script src="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.js">
+        </script>
+        <script src="my.js">
+        </script>
+        <!-- User-generated css -->
+        <style>
+        </style>
+        <!-- User-generated js -->
+        <script>
+            try {
+
+    $(function() {
+
+    });
+
+  } catch (error) {
+    console.error("Your javascript has an error: " + error);
+  }
+        </script>
+    </head>
+    <body>
+        <!-- Home -->
+        <div data-role="page" data-theme="d" id="page1">
+            <div class="header" data-theme="a" data-role="header" data-position="fixed">
+                <h3 style="margin-left:1em;text-align:left">
+                    Yoga Now in Austin
+                </h3>
+            </div>
+            <div data-role="content">
+                <ul data-role="listview" data-dividertheme="d" data-inset="false" data-filter="true"></ul>
+            </div>
+            <div data-theme="a" data-role="footer" data-position="fixed">
+                <div data-role="navbar" data-iconpos="top">
+                    <ul>
+                        <li>
+                            <a href="#page1" data-transition="fade" data-theme="" data-icon="star">
+                                List
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#page1" data-transition="fade" data-theme="" data-icon="map">
+                                Map
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </body>
+
+    <script type="text/template" id="listItemTemplate">
+        <li data-theme="c" class="ui-li ui-li-static ui-btn-up-c"><%= name %>
+          <p class="ui-li-aside ui-li-desc"><strong><%= distance %> </strong>miles</p>
+        </li>
+    </script>
+    <script src="js/underscore-min.js"></script>
+</html>
