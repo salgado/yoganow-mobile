@@ -41,19 +41,19 @@
                     Yoga Now in Austin
                 </h3>
             </div>
-            <div data-role="content">
-                <ul data-role="listview" data-dividertheme="d" data-inset="false" data-filter="true"></ul>
+            <div data-role="content" id="content">
+                
             </div>
             <div data-theme="a" data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="top">
                     <ul>
                         <li>
-                            <a href="#page1" data-transition="fade" data-theme="" data-icon="star">
+                            <a href="#list" data-transition="fade" data-theme="" data-icon="star">
                                 List
                             </a>
                         </li>
                         <li>
-                            <a href="#page1" data-transition="fade" data-theme="" data-icon="map">
+                            <a href="#map" data-transition="fade" data-theme="" data-icon="map">
                                 Map
                             </a>
                         </li>
@@ -63,10 +63,17 @@
         </div>
     </body>
 
+    <script type="text/template" id="listTemplate">
+        <ul data-role="listview" data-dividertheme="d" data-inset="false" data-filter="true"></ul>
+    </script>
+
     <script type="text/template" id="listItemTemplate">
         <li data-theme="c" class="ui-li ui-li-static ui-btn-up-c"><%= name %>
           <p class="ui-li-aside ui-li-desc"><strong><%= distance %> </strong>miles</p>
         </li>
     </script>
+
     <script src="js/underscore-min.js"></script>
+    <script src="js/backbone-min.js"></script>    
+    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 </html>

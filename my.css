@@ -6,13 +6,11 @@
 }
 
 .ui-content { 
-  opacity: 0.8;
+  opacity: 0.6;
 }
 
-.header h3 { 
-	width: 100%;
-	margin-left: 0;
-	text-align:left;
+h3 { 
+	margin-left:1em;text-align:left
 }
 
 .ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
@@ -25,3 +23,12 @@ color:#555;
 	background-color:#4d3361;
 	color:#ccc;
 }
+
+.map-canvas { 
+	height:100%;
+	position:fixed;
+	top:0px;
+	bottom:0px;
+	width:100%;	
+}
+
