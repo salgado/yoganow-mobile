@@ -5,9 +5,8 @@
         versionCode="10" 
         version   = "1.0.0">
 
-    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
-    <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
+    <feature name="http://api.phonegap.com/1.0/network"/>
+    <feature name="http://api.phonegap.com/1.0/geolocation"/>
 
     <!-- versionCode is optional and Android only -->
 
