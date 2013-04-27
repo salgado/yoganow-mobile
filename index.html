@@ -36,14 +36,8 @@
     <body>
         <!-- Home -->
         <div data-role="page" data-theme="d" id="page1">
-            <div class="header" data-theme="a" data-role="header" data-position="fixed">
-                <h3 style="margin-left:1em;text-align:left">
-                    Yoga Now in Austin
-                </h3>
-            </div>
-            <div data-role="content" id="content">
-                
-            </div>
+            <div class="header" data-theme="a" data-role="header" data-position="fixed"></div>
+            <div data-role="content" id="content"></div>
             <div data-theme="a" data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="top">
                     <ul>
@@ -64,7 +58,7 @@
     </body>
 
     <script type="text/template" id="listTemplate">
-        <ul data-role="listview" data-dividertheme="d" data-inset="false" data-filter="true"></ul>
+        <ul data-role="listview" id="studiosList" data-dividertheme="d" data-inset="false" data-filter="true"></ul>
     </script>
 
     <script type="text/template" id="listItemTemplate">
@@ -73,7 +67,13 @@
         </li>
     </script>
 
+    <script type="text/template" id="headerTemplate">
+        <h3 style="margin-left:1em;text-align:left">
+            <%= value %>
+        </h3>
+    </script>   
+
     <script src="js/underscore-min.js"></script>
     <script src="js/backbone-min.js"></script>    
-    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
+   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
 </html>
