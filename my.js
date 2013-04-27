@@ -126,7 +126,6 @@ $(function(){
 	}
 
 	var App = Backbone.Router.extend({
-
 		routes: {
 		  "map": "map",   
 		  "list": "list",  
@@ -140,12 +139,9 @@ $(function(){
 		  updateList(window.studios);
 		  $(".ui-listview").show();
 		}
-
 	});
 
 	window.app = new App();
-
-	Backbone.history.start()
 
 	$("#map").on('click',function(){
 		app.navigate("/map", true);
@@ -155,5 +151,5 @@ $(function(){
 		app.navigate("/list", true);
 	});
 
-
+	Backbone.history.start();
 });
