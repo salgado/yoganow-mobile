@@ -36,3 +36,11 @@ color:#555;
 	margin-top: 25px;
 }
 
+.content {
+	position:fixed;
+	top:0px;
+	right:0px;
+	left:0px;
+	bottom:57px;
+}
+

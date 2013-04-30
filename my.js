@@ -1,7 +1,7 @@
 
-// Cordova is ready
-//
-
+document.addEventListener("deviceready", function(){
+	navigator.splashscreen.hide();
+}, false);
 
 $(function(){
 
@@ -110,6 +110,7 @@ $(function(){
 	$('[data-position=fixed]').fixedtoolbar({ tapToggle:false});
 
 	function showMap() {
+		console.log('show map');
 		$(".ui-listview").hide();
 		$("#content").html($("<div id='map-canvas'/>"));
 
@@ -119,8 +120,7 @@ $(function(){
 		    mapTypeId: google.maps.MapTypeId.ROADMAP
 		};
 
-		map = new google.maps.Map(document.getElementById('map-canvas'),
-		      mapOptions);
+		map = new google.maps.Map(document.getElementsByClassName('content')[0], mapOptions);
 
 		google.maps.event.trigger(map,'resize');		
 	}
