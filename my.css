@@ -8,7 +8,6 @@ html, body {
 	padding:0px;
 }
 
-
 #page1 {
 	background-image: url(yoga-mat-texture.jpg);
 	background-attachment:fixed;
@@ -29,17 +28,17 @@ h3 {
 	width:100%;
 }
 
+.ui-btn-active {
+	border:0px;
+}
+
+.ui-btn-active:hover {
+	border:0px;
+}
+
 .ui-btn-inner { 
 	background-color:#4d3361;
 	color:#ccc;
-}
-
-.map-canvas { 
-	height:100%;
-	position:fixed;
-	top:0px;
-	bottom:0px;
-	width:100%;	
 }
 
 .content {
@@ -51,6 +50,7 @@ h3 {
 }
 
 .studiosList {
+	margin-top:40px;
 	padding:0px;
 	margin-right:0px;
 	opacity:0.7;
