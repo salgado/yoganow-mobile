@@ -1,4 +1,13 @@
-/* Put your custom CSS here */
+html, body {
+	height: 100%;
+}
+
+#content {
+	margin-top:18px;
+	width:100%;
+	padding:0px;
+}
+
 
 #page1 {
 	background-image: url(yoga-mat-texture.jpg);
@@ -14,9 +23,10 @@ h3 {
 }
 
 .ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
-padding: 1em 15px;
-display: block;
-color:#555;
+	padding: 1em 15px;
+	display: block;
+	color:#555;
+	width:100%;
 }
 
 .ui-btn-inner { 
@@ -32,10 +42,6 @@ color:#555;
 	width:100%;	
 }
 
-.studiosList { 
-	margin-top: 25px;
-}
-
 .content {
 	position:fixed;
 	top:0px;
@@ -44,3 +50,11 @@ color:#555;
 	bottom:57px;
 }
 
+.studiosList {
+	padding:0px;
+	margin-right:0px;
+	opacity:0.7;
+	color:black;
+}
+
+*/

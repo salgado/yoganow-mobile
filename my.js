@@ -1,34 +1,206 @@
+api_host = "http://yoganow-api.herokuapp.com"
 
 document.addEventListener("deviceready", function(){
 	navigator.splashscreen.hide();
 }, false);
 
-$(function(){
+$(function(){	
 
+	$.mobile.linkBindingEnabled = false;
+	$.mobile.hashListeningEnabled = false;
+	$.mobile.loading('hide');
 
-	var onSuccess = function(position) {
-		console.log(position);
-		lat = position.coords.latitude;
-		lng = position.coords.longitude;
+	function MapManager(containerId){
+		var manager = this;
+		var containerId = containerId;
 
-	    userLocation.set("value", lat + "," + lng);
-	};
+		this.mapOptions = new Backbone.Model({
+			zoom: 8,
+			latitude: 30.2669,
+			longitude: -97.7428,
+		});
 
-	// onError Callback receives a PositionError object
-	//
-	function onError(error) {
-	    userLocation.set('value', "301%20Bowie%20Austin");
+		function buildPosition(){
+			return new google.maps.LatLng(manager.mapOptions.get("latitude"), manager.mapOptions.get("longitude"));
+		}
+
+		function buildMapOptions(){
+			return {
+				zoom: manager.mapOptions.get("zoom"),
+				center: buildPosition(),
+				mapTypeId: google.maps.MapTypeId.ROADMAP
+			}
+		}
+
+		function calculateMapHeight(){
+			var pageHeight, headerHeight, footerHeight;
+			pageHeight = parseInt($("body").css('height'));
+			headerHeight = parseInt($(".header").css('height'));
+			footerHeight = parseInt($("[data-role='footer']").css('height'));
+
+			return pageHeight - headerHeight - footerHeight + 55 + "px";
+		}
+
+		this.showMap = function(){
+			manager.map = new google.maps.Map(document.getElementById(containerId), buildMapOptions());
+			$('#content').css('height', calculateMapHeight());
+			google.maps.event.trigger(manager.map,'resize');
+		}
+	
+		this.destroyMap = function(){
+			delete manager.map;
+			$("#" + containerId).css('background-color', '');
+			$("#" + containerId).html('');
+		}
+
+		manager.mapOptions.bind("changeCoordinates", function(){
+			console.log( manager.mapOptions.get("latitude") );
+			console.log( manager.mapOptions.get("longitude") );
+			console.log( buildMapOptions() );
+			manager.map.setOptions( buildMapOptions() );			
+		});
 	}
 
-	navigator.geolocation.getCurrentPosition(onSuccess);
+	window.mapManager = new MapManager("content");
 
-	// Prevents all anchor click handling
-	$.mobile.linkBindingEnabled = false;
-	// Disabling this will prevent jQuery Mobile from handling hash changes
-	$.mobile.hashListeningEnabled = false;
+	function getStudios(location){
+		$.getJSON(api_host + "/yoga_studios.json?location=" + location,function(data){
+			window.studios = data.yoga_studios
+			setTimeout(function(){
+				updateList(window.studios);
+				$.mobile.loading( 'hide');
+			},0);		
+		});	
+	}
+
+	var LocationManager = function(){
+		var manager = this;
+		var UserLocation = Backbone.Model.extend({
+			coordinates: function(){
+				return this.get("latitude") + "," + this.get("longitude");
+			}
+		});
+
+		this.userLocation = new UserLocation;
+
+		function onSuccess(position) {
+			console.log(position.coords.latitude);		
+		    manager.userLocation.set({
+		    	latitude: position.coords.latitude,
+		    	longitude: position.coords.longitude
+		    });
+
+		    manager.userLocation.trigger("changeCoordinates");
+		}
+
+		function onError(error) {
+		    manager.userLocation.set('coordinates', "301%20Bowie%20Austin");
+		}
+
+		this.updateCity = function() {
+			$.getJSON(api_host + "/location.json?location=" + manager.currentLocation().coordinates,function(data){
+				manager.userLocation.set("city", data.city);
+			});
+		};
+
+		this.geolocate = function(){
+			navigator.geolocation.getCurrentPosition(onSuccess);
+		};
+
+		this.currentLocation = function(){
+			return {
+				coordinates: manager.userLocation.coordinates(),
+				latitude: manager.userLocation.get('latitude'),
+				longitude: manager.userLocation.get('longitude')
+			}
+		};
+	}
+
+	window.locationManager = new LocationManager;
+
+
+	StudiosManager = function(){
+		var manager = this;
+
+		this.Studio = Backbone.Model.extend({});
+		this.Studios = Backbone.Collection.extend({
+			model: manager.Studio,
+			parse: function(response){
+				_.each(response.yoga_studios, function(studio){
+					studio.distance = parseFloat(studio.distance).toFixed(2);
+				});
+				return response.yoga_studios;
+			}
+		});
+		this.studios = new manager.Studios();
+		this.studios.url = api_host + "/yoga_studios.json"
+
+		var StudioView = Backbone.View.extend({		
+			events: {
+				"click" : function(){
+					console.log('clicked: ' + this.model.get('name'));
+				}
+			},
+			template: _.template($("#listItemTemplate").html()),
+			render: function(){
+				this.model.attributes
+				return this.template(this.model.attributes);
+			}
+		});
+
+		var StudiosView = Backbone.View.extend({
+			template: _.template($("#listTemplate").html()),
+			render: function(){
+
+				$ul = $(this.template({}));
+				_.each(this.collection.models, function(studio){
+					$li = $( (new StudioView({ model: studio })).render());
+					$ul.append($li);
+				});
+
+				return $ul;
+			}
+		})
+
+		manager.studios.fetch({
+			success: function(){
+				manager.showStudios();
+			}
+		})
+
+		this.views = [];
+
+		this.showStudios = function(){
+			studiosView = new StudiosView({
+				collection: manager.studios
+			});
+			manager.views.push(studiosView);
+			
+			$("#content").html( studiosView.render() );
+		}
+
+		this.removeStudios = function(){
+			_.each(manager.views,function(view) { delete view }) ;
+			$("#content").html("");
+		}
+	}
+
+	window.studiosManager = new StudiosManager();
+
+
+	var onPositionChange = function(){		
+		getStudios(locationManager.userLocation.get('coordinates'));
+		//locationManager.updateCity();
+	}
+
+	locationManager.userLocation.on('change', onPositionChange);
+
+	
+	locationManager.userLocation.on('change:city', function(){		
+		title.set("value", "Yoga Now in " + locationManager.userLocation.get('city'));
+	});
 
 	window.title = new Backbone.Model({});
-	window.userLocation = new Backbone.Model({});
 
 	var TitleView = Backbone.View.extend({
 		template: _.template($("#headerTemplate").html()),
@@ -46,41 +218,13 @@ $(function(){
 	})
 
 	title.set("value", "Yoga Now");
-	api_host = "http://yoganow-api.herokuapp.com"
-
-	$.mobile.loading( 'show');
-
-	function getStudios(location){
-		$.getJSON(api_host + "/yoga_studios.json?location=" + location,function(data){
-			window.studios = data.yoga_studios
-			setTimeout(function(){
-				updateList(window.studios);
-				$.mobile.loading( 'hide');
-			},0);		
-		});	
-	}
-
-	function getCity(location){
-		$.getJSON(api_host + "/location.json?location=" + location,function(data){
-			title.set("value", "Yoga Now in " + data.city);
-		});
-	}
-
-	userLocation.on('change:value', function(){
-		getStudios(userLocation.get('value'));
-		getCity(userLocation.get('value'));
-	})
-
-	getStudios(userLocation.get('value'));
-	getCity(userLocation.get('value'));
-
 
 
 	function updateList(studios){
-		var listItemTemplate = _.template($("#listItemTemplate").html());		
+		console.log(studios);
 		var listTemplate = _.template($("#listTemplate").html());	
 
-		$ul = $(listTemplate({}));	
+		$ul = $(_.template($("#listItemTemplate").html(), {}));	
 				
 		$.each(studios, function(i, studio){ 
 			studio.distance = parseFloat(studio.distance).toFixed(2);
@@ -96,7 +240,7 @@ $(function(){
 			return studio.name.toLowerCase().match(new RegExp(search.toLowerCase()));
 		}));
 	}
-
+	
 	$("input").live("keyup", function(e){
 		var value = $(".ui-input-text").val();	
 		filterStudios(value, window.studios);
@@ -109,39 +253,24 @@ $(function(){
 
 	$('[data-position=fixed]').fixedtoolbar({ tapToggle:false});
 
-	function showMap() {
-		console.log('show map');
-		$(".ui-listview").hide();
-		$("#content").html($("<div id='map-canvas'/>"));
 
-		var mapOptions = {
-		    zoom: 8,
-		    center: new google.maps.LatLng(-34.397, 150.644),
-		    mapTypeId: google.maps.MapTypeId.ROADMAP
-		};
-
-		map = new google.maps.Map(document.getElementsByClassName('content')[0], mapOptions);
-
-		google.maps.event.trigger(map,'resize');		
-	}
-
-	var App = Backbone.Router.extend({
+	var Router = Backbone.Router.extend({
 		routes: {
 		  "map": "map",   
 		  "list": "list",  
 		},
 
 		map: function() {
-		  showMap();
+			mapManager.showMap();
 		},
 
 		list: function() {		
-		  updateList(window.studios);
-		  $(".ui-listview").show();
+		    mapManager.destroyMap();
+		    studiosManager.showStudios();		 
 		}
 	});
 
-	window.app = new App();
+	var app = new Router();
 
 	$("#map").on('click',function(){
 		app.navigate("/map", true);
@@ -151,5 +280,10 @@ $(function(){
 		app.navigate("/list", true);
 	});
 
+
 	Backbone.history.start();
+
 });
+
+
+
