@@ -33,7 +33,7 @@ MapManager = function(containerId){
 	var mapMarkers = [];
 
 	this.mapOptions = new Backbone.Model({
-		zoom: 12,
+		zoom: 14,
 		latitude: 37.7750,
 		longitude: -122.4183,
 	});
@@ -76,6 +76,13 @@ MapManager = function(containerId){
 			    manager.map.panTo(marker.position);
 			}); 
 		});
+
+		var marker = new google.maps.Marker({
+		    position: new google.maps.LatLng(locationManager.userLocation.get('latitude'), 
+		    	locationManager.userLocation.get('longitude')),
+		    map: manager.map,
+		});
+
 		$('#content').css('height', calculateMapHeight());
 		google.maps.event.trigger(manager.map,'resize');
 	}
@@ -157,6 +164,7 @@ StudiosManager = function(){
 		manager.views.push(studiosView);
 		
 		$("#content").html( studiosView.render() );
+		$("#content").css('height', '100%');
 	}
 
 	this.removeStudios = function(){
@@ -165,7 +173,7 @@ StudiosManager = function(){
 	}
 
 	manager.state.on("change:location", function(){
-		url = apiHost + "/yoga_studios.json?location=" + locationManager.userLocation.coordinates();
+		url = apiHost + "/yoga_studios.json?location=" + manager.state.get('location');
 		manager.studios.fetch({
 			url: url,
 			success: function(){ manager.showStudios() }
@@ -184,7 +192,6 @@ ListItemView = Backbone.View.extend({
 ListView = Backbone.View.extend({
 	initialize: function(){
 		this.collection.bind("reset", function(){
-			console.log('render');
 			this.render();
 		}, this);
 	},
@@ -216,20 +223,35 @@ TitleView = Backbone.View.extend({
 	}
 });
 Router = Backbone.Router.extend({
+
 	routes: {
 	  "map": "map",   
 	  "list": "list",  
 	},
 
 	map: function() {
-		mapManager.showMap();
+		window.mapManager.showMap();
 	},
 
 	list: function() {		
-	    mapManager.destroyMap();
-	    studiosManager.showStudios();		 
+	    window.mapManager.destroyMap();
+	    window.studiosManager.showStudios();		 
 	}
 });
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 apiHost = "http://yoganow-api.herokuapp.com"
 
 document.addEventListener("deviceready", function(){
@@ -258,30 +280,17 @@ $(function(){
 	});
 
 	locationManager.userLocation.on("changeCoordinates", function(){
+		studiosManager.state.set("location", locationManager.userLocation.coordinates());
 		mapManager.mapOptions.set({
 			latitude: locationManager.userLocation.get("latitude"),
 			longitude: locationManager.userLocation.get("longitude")
 		});
-		studiosManager.state.set("location", locationManager.userLocation.coordinates());
 	});
 
 	locationManager.geolocate();
+	$("#content").css('height', '100%');
 	Backbone.history.start();
 });
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 

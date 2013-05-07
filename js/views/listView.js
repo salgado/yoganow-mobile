@@ -1,7 +1,6 @@
 ListView = Backbone.View.extend({
 	initialize: function(){
 		this.collection.bind("reset", function(){
-			console.log('render');
 			this.render();
 		}, this);
 	},

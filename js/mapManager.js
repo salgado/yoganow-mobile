@@ -4,7 +4,7 @@ MapManager = function(containerId){
 	var mapMarkers = [];
 
 	this.mapOptions = new Backbone.Model({
-		zoom: 12,
+		zoom: 14,
 		latitude: 37.7750,
 		longitude: -122.4183,
 	});
@@ -47,6 +47,13 @@ MapManager = function(containerId){
 			    manager.map.panTo(marker.position);
 			}); 
 		});
+
+		var marker = new google.maps.Marker({
+		    position: new google.maps.LatLng(locationManager.userLocation.get('latitude'), 
+		    	locationManager.userLocation.get('longitude')),
+		    map: manager.map,
+		});
+
 		$('#content').css('height', calculateMapHeight());
 		google.maps.event.trigger(manager.map,'resize');
 	}

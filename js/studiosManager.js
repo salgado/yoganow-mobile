@@ -26,6 +26,7 @@ StudiosManager = function(){
 		manager.views.push(studiosView);
 		
 		$("#content").html( studiosView.render() );
+		$("#content").css('height', '100%');
 	}
 
 	this.removeStudios = function(){
@@ -34,7 +35,7 @@ StudiosManager = function(){
 	}
 
 	manager.state.on("change:location", function(){
-		url = apiHost + "/yoga_studios.json?location=" + locationManager.userLocation.coordinates();
+		url = apiHost + "/yoga_studios.json?location=" + manager.state.get('location');
 		manager.studios.fetch({
 			url: url,
 			success: function(){ manager.showStudios() }

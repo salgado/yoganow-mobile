@@ -19,16 +19,8 @@
             <div data-theme="a" data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="top">
                     <ul>
-                        <li>
-                            <a href="#list" data-icon="star">
-                                List
-                            </a>
-                        </li>
-                        <li>
-                            <a href="#map" data-icon="map">
-                                Map
-                            </a>
-                        </li>
+                        <li><a href="#list" data-icon="star">List</a></li>
+                        <li><a href="#map" data-icon="map">Map</a></li>
                     </ul>
                 </div>
             </div>
@@ -36,12 +28,12 @@
     </body>
 
     <script type="text/template" id="listTemplate">
-        <ul data-role="listview" class="studiosList" id="studiosList" data-dividertheme="d" data-inset="false" style="margin-top:43px"></ul>
+        <ul data-role="listview" class="studiosList" id="studiosList" data-dividertheme="d" data-inset="false"></ul>
     </script>
 
     <script type="text/template" id="listItemTemplate">
-        <li data-theme="c" class="ui-li ui-li-static ui-btn-up-c"><%= name %>
-          <p class="ui-li-aside ui-li-desc"><strong><%= distance %> </strong>miles</p>
+        <li data-theme="c" class="ui-li ui-li-static ui-btn-up-c"><span><%= name %></span>
+          <p class="ui-li-aside ui-li-desc"><strong><%= distance %> miles</strong></p>
         </li>
     </script>
 
@@ -52,6 +44,6 @@
     </script>   
 
    <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
-   <script src="application_prod.js"></script>
-   <!-- development <script src="http://localhost:9292/assets/js/application.js"></script>-->
+   <script src="application_prod.js"></script>-->
+   <!--<script src="http://localhost:9292/assets/js/application.js"></script>-->
 </html>
