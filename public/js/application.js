@@ -24,7 +24,7 @@ $(function(){
 	$.mobile.linkBindingEnabled = false;
 	$.mobile.hashListeningEnabled = false;
 	$('[data-position=fixed]').fixedtoolbar({ tapToggle:false});
-	$.mobile.loading('hide');
+	$.mobile.loading('show');
 
 	window.mapManager 	    = new MapManager("content"); 
 	window.locationManager  = new LocationManager;

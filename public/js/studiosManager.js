@@ -35,6 +35,9 @@ StudiosManager = function(){
 			'float' : 'right',
 			'margin-right' : '30px'
 		})
+		$.mobile.loading('hide');
+		$("#footer").show();
+
 	}
 
 	this.removeStudios = function(){
@@ -44,9 +47,12 @@ StudiosManager = function(){
 
 	manager.state.on("change:location", function(){
 		url = apiHost + "/yoga_studios.json?location=" + manager.state.get('location');
+		$.mobile.loading('show');
 		manager.studios.fetch({
 			url: url,
-			success: function(){ manager.showStudios() }
+			success: function(){
+			    manager.showStudios() 
+			}
 		});
 	});
 
