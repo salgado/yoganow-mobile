@@ -31,8 +31,8 @@ $(function(){
 	window.studiosManager   = new StudiosManager();
 	window.app 				= new Router();
 
-	$("#map").on('click',function(){ app.navigate("/map", true) });
-	$("#list").on('click',function(){ app.navigate("/list", true) });
+	$("#map").on('click',function(){ app.navigate("/map", {trigger:false, replace:false} ) });
+	$("#list").on('click',function(){ app.navigate("/list", {trigger:false, replace:false} ) });
 	
 	titleView = new TitleView;
 

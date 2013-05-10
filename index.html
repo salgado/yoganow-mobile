@@ -9,13 +9,13 @@
         </title>
         <link rel="stylesheet" href="public/css/jquery.mobile-1.2.0.min.css" />
         <link rel="stylesheet" href="public/css/purple_theme_mobile.min.css" />
+        <link rel="stylesheet" href="public/css/vendor/modal.css" />
         <link rel="stylesheet" href="public/css/my.css" />
     </head>
     <body style="height:100%">
         <!-- Home -->
         <div data-role="page" class="page" data-theme="d" id="page">
             <div class="header" data-role="header" data-position="fixed"></div>
-            <div class="detailsView">Hello Hello</div>
             <div class="content" id="content" ></div>
             <div data-theme="a" data-role="footer" data-position="fixed" id="footer">
                 <div data-role="navbar" data-iconpos="top">
@@ -26,6 +26,19 @@
                 </div>
             </div>
         </div>
+
+        <section class="semantic-content" id="modal-text" tabindex="-1"
+                role="dialog" aria-labelledby="modal-label" aria-hidden="true">
+
+            <div class="modal-inner">
+                <header id="modal-label"><!-- Header --></header>
+                <div class="modal-content"><!-- The modals content --></div>
+                <footer><!-- Footer --></footer>
+            </div>
+
+            <a href="#!" class="modal-close" title="Close this modal"
+                data-dismiss="modal">×</a>
+        </section>
     </body>
 
     <script type="text/template" id="listTemplate">

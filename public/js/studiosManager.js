@@ -37,7 +37,8 @@ StudiosManager = function(){
 		})
 		$.mobile.loading('hide');
 		$("#footer").show();
-
+		$("#detailsView").hide();
+		$("#studiosList li").on("click",function(){ document.location.href="#modal-text"})
 	}
 
 	this.removeStudios = function(){

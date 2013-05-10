@@ -111,6 +111,7 @@ MapManager = function(containerId){
 			'height' : calculateMapHeight()
 		});
 		google.maps.event.trigger(manager.map,'resize');
+		$(".detailsView").hide();
 	}
 
 	this.destroyMap = function(){
@@ -201,7 +202,8 @@ StudiosManager = function(){
 		})
 		$.mobile.loading('hide');
 		$("#footer").show();
-
+		$("#detailsView").hide();
+		$("#studiosList li").on("click",function(){ document.location.href="#modal-text"})
 	}
 
 	this.removeStudios = function(){
@@ -275,7 +277,9 @@ Router = Backbone.Router.extend({
 
 	list: function() {		
 	    window.mapManager.destroyMap();
-	    window.studiosManager.showStudios();		 
+	    window.studiosManager.showStudios();	
+	    $(".detailsView").hide();
+	 
 	}
 });
 
@@ -311,8 +315,8 @@ $(function(){
 	window.studiosManager   = new StudiosManager();
 	window.app 				= new Router();
 
-	$("#map").on('click',function(){ app.navigate("/map", true) });
-	$("#list").on('click',function(){ app.navigate("/list", true) });
+	$("#map").on('click',function(){ app.navigate("/map", {trigger:false, replace:false} ) });
+	$("#list").on('click',function(){ app.navigate("/list", {trigger:false, replace:false} ) });
 	
 	titleView = new TitleView;
 

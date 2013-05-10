@@ -11,6 +11,8 @@ Router = Backbone.Router.extend({
 
 	list: function() {		
 	    window.mapManager.destroyMap();
-	    window.studiosManager.showStudios();		 
+	    window.studiosManager.showStudios();	
+	    $(".detailsView").hide();
+	 
 	}
 });

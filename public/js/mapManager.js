@@ -59,6 +59,7 @@ MapManager = function(containerId){
 			'height' : calculateMapHeight()
 		});
 		google.maps.event.trigger(manager.map,'resize');
+		$(".detailsView").hide();
 	}
 
 	this.destroyMap = function(){
