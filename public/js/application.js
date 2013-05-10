@@ -2,6 +2,7 @@
 //= require js/vendor/jquery.mobile-1.2.0.min
 //= require js/vendor/underscore-min
 //= require js/vendor/backbone-min
+//= require js/vendor/google_maps_v3
 //= require js/storageManager
 //= require js/mapManager
 //= require js/locationManager

@@ -7,14 +7,15 @@
         <meta name="apple-mobile-web-app-status-bar-style" content="black" />
         <title>
         </title>
-        <link rel="stylesheet" href="https://s3.amazonaws.com/codiqa-cdn/mobile/1.2.0/jquery.mobile-1.2.0.min.css" />
-        <link rel="stylesheet" href="public/purple_theme_mobile.min.css" />
-        <link rel="stylesheet" href="public/my.css" />
+        <link rel="stylesheet" href="public/css/jquery.mobile-1.2.0.min.css" />
+        <link rel="stylesheet" href="public/css/purple_theme_mobile.min.css" />
+        <link rel="stylesheet" href="public/css/my.css" />
     </head>
     <body style="height:100%">
         <!-- Home -->
-        <div data-role="page" data-theme="d" id="page1">
+        <div data-role="page" class="page" data-theme="d" id="page">
             <div class="header" data-role="header" data-position="fixed"></div>
+            <div class="detailsView">Hello Hello</div>
             <div class="content" id="content" ></div>
             <div data-theme="a" data-role="footer" data-position="fixed">
                 <div data-role="navbar" data-iconpos="top">
@@ -32,8 +33,11 @@
     </script>
 
     <script type="text/template" id="listItemTemplate">
-        <li data-theme="c" class="ui-li ui-li-static ui-btn-up-c"><span><%= name %></span>
-          <p class="ui-li-aside ui-li-desc"><strong><%= distance %> miles</strong></p>
+        <li data-theme="c" class="ui-li ui-li-static ui-btn-up-c">
+            <p class="studioName">
+                <%= name %>
+                <span><%= distance %> miles</span>
+            </p>
         </li>
     </script>
 
@@ -43,7 +47,6 @@
         </h3>
     </script>   
 
-   <script src="https://maps.googleapis.com/maps/api/js?v=3.exp&sensor=false"></script>
    <!--<script src="public/application_prod.js"></script>-->
    <script src="http://localhost:3001/assets/js/application.js"></script>
 </html>

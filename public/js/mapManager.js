@@ -39,7 +39,7 @@ MapManager = function(containerId){
 			var marker = new google.maps.Marker({
 			    position: new google.maps.LatLng(studio.get('latitude'), studio.get('longitude')),
 			    map: manager.map,
-			    icon: "public/images/yoga_icon_small.png"
+			    icon: "public/css/images/yoga_icon_small.png"
 			});
 
 			mapMarkers.push(marker);								
@@ -54,7 +54,10 @@ MapManager = function(containerId){
 		    map: manager.map,
 		});
 
-		$('#content').css('height', calculateMapHeight());
+		$('#content').css({ 
+			'margin-top' : '59px',
+			'height' : calculateMapHeight()
+		});
 		google.maps.event.trigger(manager.map,'resize');
 	}
 

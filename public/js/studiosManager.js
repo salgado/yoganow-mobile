@@ -26,7 +26,15 @@ StudiosManager = function(){
 		manager.views.push(studiosView);
 		
 		$("#content").html( studiosView.render() );
-		$("#content").css('height', '100%');
+		$("#content").css({
+			'height': '100%',
+			'margin-top': '73px'
+		});
+		$(".studioName span").css({
+			'font-size' : '50%',
+			'float' : 'right',
+			'margin-right' : '30px'
+		})
 	}
 
 	this.removeStudios = function(){

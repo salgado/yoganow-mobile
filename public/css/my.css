@@ -1,0 +1,83 @@
+html, body {
+	height: 100%;
+}
+
+#content {
+	margin-top:73px;
+	height:100%;
+	position: relative;
+	width:100%;
+}
+
+.detailsView {
+    position:absolute;
+    top:0px;
+    left:0px;
+    right:0px;
+    width:100%;
+    margin-top:60px;
+    display:none;
+    background-color:#4d3361;
+    color: white;
+}
+
+#page {
+	background-image: url(yoga-mat-texture.jpg);
+	background-attachment:fixed;
+}
+
+.ui-content { 
+  opacity: 0.6;
+}
+
+h3 { 
+	/*margin-left:1em;text-align:left*/
+}
+
+.ui-li .ui-btn-inner a.ui-link-inherit, .ui-li-static.ui-li {
+	/*padding: 1em 15px;*/
+	display: block;
+	color:#555;
+	width:100%;
+}
+
+p.studiosName span {
+	font-size: 50%;
+}
+
+.ul-li-aside {
+	width:80px;
+}
+
+.ui-btn-active {
+	border:0px;
+}
+
+.ui-btn-active:hover {
+	border:0px;
+}
+
+.ui-btn-inner { 
+	background-color:#4d3361;
+	color:#ccc;
+}
+
+.content {
+	position:fixed;
+	top:0px;
+	right:0px;
+	left:0px;
+	bottom:57px;
+}
+
+.studiosList {
+	padding:0px;
+	margin:-15px 0px 0px 0px;
+	opacity:1.0;
+	color:black;
+}
+.mapUnderDetailsView {
+	margin-top:200px;
+}
+
+*/
